@@ -1,0 +1,25 @@
+{
+  "name": "portfolio-backend",
+  "version": "1.0.0",
+  "description": "Node.js + Express + SQLite backend with AI + RAG for portfolio chat",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "embed": "node scripts/embedProjects.js",
+    "embed:test": "node scripts/embedProjects.js"
+  },
+  "keywords": ["express", "sqlite", "ai", "rag", "openai"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "sqlite3": "^5.1.6",
+    "@xenova/transformers": "^2.17.2"
+  },
+  "devDependencies": {}
+}
+

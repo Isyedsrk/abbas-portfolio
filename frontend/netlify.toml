@@ -1,0 +1,11 @@
+[build]
+  # Directory to publish to deploy
+  publish = "dist"
+  # Command to build the site
+  command = "npm run build"
+
+# Handle React Router paths
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 

@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Secrets — never commit real keys
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+dist-ssr/
+
+# Logs and OS noise
+*.log
+.DS_Store
+Thumbs.db
