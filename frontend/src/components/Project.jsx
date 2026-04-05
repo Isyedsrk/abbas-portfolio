@@ -161,36 +161,38 @@ const Project = () => {
         <section className="py-5 text-center container">
           <div className="row py-lg-5">
             <div className="col-lg-6 col-md-8 mx-auto my-4">
-              <h1 className="fw-light">Projects</h1>
+              <h1 className="fw-light text-warning">Projects</h1>
               <p className="lead text-muted">
                 Discover a selection of standout projects, showcasing a range of
                 innovative work from web development and AR experiences to game
                 creation. Each entry reflects my expertise and passion for
                 technology.
               </p>
-              <p>
+              <p className="d-flex justify-content-center gap-3 flex-wrap mb-0">
                 <a
                   href="https://github.com/Isyedsrk"
                   className="btn btn-github"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="GitHub"
                 >
-                  <FaGithub style={{ fontSize: "2.5em", color: "#000" }} />
+                  <FaGithub style={{ color: "#ffc107" }} />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/syed-bakhtawar-abbas-2a17441a6/"
                   className="btn btn-linkedin"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="LinkedIn"
                 >
-                  <FaLinkedin style={{ fontSize: "2.5em", color: "#0a66c2" }} />
+                  <FaLinkedin style={{ color: "#0a66c2" }} />
                 </a>
               </p>
             </div>
           </div>
         </section>
 
-        <div className="py-5 bg-light">
+        <div className="py-5 projects-carousel-section">
           <div className="carousel-container">
               <div className="carousel-wrapper">
                 <button 
@@ -253,7 +255,7 @@ const Project = () => {
                                 }
                               }}
                               type="button"
-                              className="btn btn-success btn-sm"
+                              className="btn btn-outline-warning btn-sm"
                             >
                               Glimpse
                             </button>
@@ -364,13 +366,11 @@ const Project = () => {
         .carousel-card .card {
           width: 350px;
           height: 500px;
-          border: none;
+          border: 1px solid rgba(255, 193, 7, 0.22);
           border-radius: 15px;
           overflow: hidden;
-          background: #ffffff;
-          box-shadow: 
-            0 10px 30px rgba(0, 0, 0, 0.1),
-            0 4px 12px rgba(0, 0, 0, 0.05);
+          background: #141414;
+          box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
           position: relative;
           display: flex;
           flex-direction: column;
@@ -382,7 +382,7 @@ const Project = () => {
           width: 100%;
           overflow: hidden;
           flex-shrink: 0;
-          background: #f8f9fa;
+          background: #0a0a0a;
         }
 
 
@@ -398,11 +398,14 @@ const Project = () => {
 
         .carousel-card .card-body {
           padding: 1.5rem;
+          padding-bottom: 1.25rem;
           display: flex;
           flex-direction: column;
           flex: 1;
-          background: #ffffff;
+          background: #141414;
           min-height: 0;
+          border: none;
+          box-shadow: none;
           transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -410,14 +413,14 @@ const Project = () => {
           font-size: 1.1rem;
           font-weight: 600;
           margin-bottom: 0.75rem;
-          color: #333;
+          color: #ffc107 !important;
           flex-shrink: 0;
           transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .carousel-card .card-text {
           font-size: 0.9rem;
-          color: #666;
+          color: rgba(245, 245, 245, 0.75);
           line-height: 1.4;
           margin-bottom: 1rem;
           flex: 1;
@@ -454,22 +457,30 @@ const Project = () => {
           color: #000;
         }
 
-        .carousel-card .btn-success {
-          background: #28a745;
-          color: #fff;
+        .carousel-card .btn-outline-warning {
+          border: none !important;
+          box-shadow: none !important;
+          color: #ffc107;
+          background: transparent;
+          text-decoration: none;
         }
 
-        .carousel-card .btn-success:hover {
-          background: #218838;
-          color: #fff;
+        .carousel-card .btn-outline-warning:hover {
+          background: rgba(255, 193, 7, 0.15);
+          color: #ffcd39;
+        }
+
+        .carousel-card .btn-outline-warning:focus-visible {
+          outline: 2px solid rgba(255, 193, 7, 0.6);
+          outline-offset: 2px;
         }
 
         .carousel-btn {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          background: rgba(255, 255, 255, 0.9);
-          border: none;
+          background: rgba(20, 20, 20, 0.95);
+          border: 2px solid rgba(255, 193, 7, 0.5);
           border-radius: 50%;
           width: 50px;
           height: 50px;
@@ -477,11 +488,11 @@ const Project = () => {
           align-items: center;
           justify-content: center;
           font-size: 1.2rem;
-          color: #333;
+          color: #ffc107;
           cursor: pointer;
           transition: all 0.3s ease;
           z-index: 10;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
         }
 
         /* Hide navigation buttons on mobile */
@@ -492,9 +503,10 @@ const Project = () => {
         }
 
         .carousel-btn:hover {
-          background: rgba(255, 255, 255, 1);
+          background: #ffc107;
+          color: #000;
           transform: translateY(-50%) scale(1.1);
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 6px 24px rgba(255, 193, 7, 0.35);
         }
 
         .carousel-btn:active {
@@ -520,20 +532,21 @@ const Project = () => {
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          border: none;
-          background: #ccc;
+          border: 1px solid rgba(255, 193, 7, 0.35);
+          background: #2a2a2a;
           cursor: pointer;
           transition: all 0.3s ease;
         }
 
         .indicator.active {
-          background: #007bff;
+          background: #ffc107;
           transform: scale(1.2);
+          border-color: #ffc107;
         }
 
         .indicator:hover {
-          background: #007bff;
-          opacity: 0.7;
+          background: #ffc107;
+          opacity: 0.85;
         }
 
         /* Card Hover Effects */

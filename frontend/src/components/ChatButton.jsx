@@ -35,8 +35,8 @@ const ChatButton = () => {
           width: 60px;
           height: 60px;
           background: #ffc107;
-          color: #000000;
-          border: 3px solid #000000;
+          color: #141414;
+          border: 3px solid #141414;
           border-radius: 50%;
           padding: 0;
           cursor: pointer;

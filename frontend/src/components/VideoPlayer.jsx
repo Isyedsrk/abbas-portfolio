@@ -11,12 +11,12 @@ import bbSR from './videos/BB_SR.mp4';
 
 // Define local video sources
 const localVideoMappings = {
-  1: bbSR,               // Biggboss Interactive Touchscreen System
-  3: learningWithAR,     // Learning with AR
-  4: obliviate,          // Obliviate
-  5: fruitSlicer,        // Fruit-Slicer
-  6: apnaSuperBazaar,    // Apna super bazaar
-  7: healthease          // Healthease
+  1: bbSR, // Biggboss Interactive Touchscreen System
+  3: learningWithAR, // Learning with AR
+  4: obliviate, // Obliviate
+  5: fruitSlicer, // Fruit-Slicer
+  6: apnaSuperBazaar, // Apna super bazaar
+  7: healthease, // Healthease
 };
 
 const VideoPlayer = () => {
@@ -26,103 +26,105 @@ const VideoPlayer = () => {
   const [projectTitle, setProjectTitle] = useState('');
 
   useEffect(() => {
-    // Project titles
     const projectTitles = {
-      1: "Biggboss Interactive Touchscreen System",
-      2: "Party Room",
-      3: "Learning with AR",
-      4: "Obliviate",
-      5: "Fruit-Slicer",
-      6: "Apna super bazaar",
-      7: "Healthease",
-      8: "DAR"
+      1: 'Biggboss Interactive Touchscreen System',
+      2: 'Party Room',
+      3: 'Learning with AR',
+      4: 'Obliviate',
+      5: 'Fruit-Slicer',
+      6: 'Apna super bazaar',
+      7: 'Healthease',
+      8: 'DAR',
     };
-    
+
     if (!id || !localVideoMappings[id]) {
-      // If DAR or Party Room project, show a message (since we don't have videos for them)
       if (id === '2' || id === '8') {
         setProjectTitle(projectTitles[id] || 'Project Video');
         return;
       }
-      
-      // For any other invalid ID, navigate back to projects
       navigate('/Project');
       return;
     }
 
-    // Set the video source based on the project ID
     setVideoSrc(localVideoMappings[id]);
     setProjectTitle(projectTitles[id] || 'Project Video');
   }, [id, navigate]);
 
-  // Special case for projects without videos (Party Room, DAR)
+  const back = () => navigate('/Project');
+
   if (id === '2' || id === '8') {
     return (
-      <div className="container my-5">
-        <div className="row justify-content-center">
-          <div className="col-lg-10">
-            <div className="card shadow video-player-card">
-              <div className="card-header bg-warning text-dark">
-                <h3 className="mb-0">{projectTitle} - Video Glimpse</h3>
-              </div>
-              <div className="card-body p-4 text-center">
-                <div className="alert alert-info">
-                  <h4>Video Coming Soon</h4>
-                  <p>We&apos;re currently preparing a video demonstration for the {projectTitle} project.</p>
-                </div>
-              </div>
-              <div className="card-footer">
-                <button 
-                  className="btn btn-primary" 
-                  onClick={() => navigate('/Project')}
-                >
-                  Back to Projects
-                </button>
+      <section className="video-page">
+        <div className="container-fluid px-3 px-lg-4 py-4">
+          <div className="video-page-shell">
+            <header className="video-page-header">
+              <p className="video-page-eyebrow mb-2">Portfolio</p>
+              <h1 className="video-page-title">{projectTitle}</h1>
+              <p className="video-page-subtitle">Video glimpse</p>
+            </header>
+            <div className="video-page-body video-page-body--empty p-4 p-md-5 text-center">
+              <div className="video-page-soon mx-auto">
+                <h2 className="video-page-soon-title h4 text-warning mb-3">
+                  Video coming soon
+                </h2>
+                <p className="video-page-soon-text mb-0">
+                  A walkthrough for <strong>{projectTitle}</strong> is on the way.
+                </p>
               </div>
             </div>
+            <footer className="video-page-footer">
+              <button
+                type="button"
+                className="btn btn-warning text-dark fw-semibold px-4"
+                onClick={back}
+              >
+                Back to projects
+              </button>
+            </footer>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="container my-5">
-      <div className="row justify-content-center">
-        <div className="col-lg-10">
-          <div className="card shadow video-player-card">
-            <div className="card-header bg-warning text-dark">
-              <h3 className="mb-0">{projectTitle} - Video Glimpse</h3>
-            </div>
-            <div className="card-body p-0">
-              <div className="ratio ratio-16x9">
-                <video
-                  src={videoSrc}
-                  title={`${projectTitle} video`}
-                  controls
-                  className="w-100 h-100"
-                  style={{ 
-                    objectFit: 'contain',
-                    backgroundColor: '#000'
-                  }}
-                >
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
-            <div className="card-footer">
-              <button 
-                className="btn btn-primary" 
-                onClick={() => navigate('/Project')}
+    <section className="video-page">
+      <div className="container-fluid px-3 px-lg-4 py-4">
+        <div className="video-page-shell">
+          <header className="video-page-header">
+            <p className="video-page-eyebrow mb-2">Portfolio</p>
+            <h1 className="video-page-title">{projectTitle}</h1>
+            <p className="video-page-subtitle">Video glimpse</p>
+          </header>
+          <div className="video-page-body p-0 bg-black">
+            <div className="ratio ratio-16x9">
+              <video
+                src={videoSrc}
+                title={`${projectTitle} video`}
+                controls
+                className="w-100 h-100"
+                style={{
+                  objectFit: 'contain',
+                  backgroundColor: '#000',
+                }}
               >
-                Back to Projects
-              </button>
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
+          <footer className="video-page-footer">
+            <button
+              type="button"
+              className="btn btn-warning text-dark fw-semibold px-4"
+              onClick={back}
+            >
+              Back to projects
+            </button>
+          </footer>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default VideoPlayer; 
+export default VideoPlayer;

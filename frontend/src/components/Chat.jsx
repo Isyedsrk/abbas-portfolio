@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import AssistantMessageContent from './AssistantMessageContent';
 import { askQuestion } from '../utils/api';
 import Swal from 'sweetalert2';
 import { FaPaperPlane, FaSpinner } from 'react-icons/fa';
@@ -114,7 +115,13 @@ const Chat = () => {
                       ) : (
                         <strong>AI Assistant:</strong>
                       )}
-                      <p>{message.content}</p>
+                      {message.type === 'user' ? (
+                        <p>{message.content}</p>
+                      ) : (
+                        <div className="assistant-msg-wrap">
+                          <AssistantMessageContent text={message.content} />
+                        </div>
+                      )}
                       
                       {message.relevantProjects && message.relevantProjects.length > 0 && (
                         <div className="relevant-projects">
@@ -276,8 +283,12 @@ const Chat = () => {
           color: #333;
           padding: 12px 18px;
           border-radius: 18px 18px 18px 4px;
-          max-width: 70%;
+          max-width: 92%;
           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .assistant-msg-wrap {
+          margin-top: 4px;
         }
 
         .message-content strong {

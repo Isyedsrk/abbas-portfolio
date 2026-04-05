@@ -21,13 +21,23 @@ import {
   buildRagUserMessage,
 } from '../utils/aiProviders.js';
 import dotenv from 'dotenv';
+import {
+  isConversationClosing,
+  CLOSING_ASSISTANT_ANSWER,
+} from '../utils/conversationClosing.js';
+import {
+  isGreeting,
+  isVaguePortfolioQuestion,
+  buildVaguePortfolioAnswer,
+  GREETING_ASSISTANT_ANSWER,
+  SOFT_UNCLEAR_ASSISTANT_ANSWER,
+} from '../utils/conversationGuidance.js';
 
 dotenv.config();
 
 const router = express.Router();
 
 const MAX_CONTEXT_PROJECTS = 5;
-const NO_MATCH_LLM_MESSAGE = `I'm not sure I have anything in Syed's portfolio that matches that yet. Could you name a project or rephrase? For example: DAR, Bigg Boss – App Room, Learning with AR, Obliviate, Fruit-Slicer, Apna super bazaar, Healthease, or Party Room.`;
 
 /**
  * Generate embedding using Xenova (local)
@@ -106,6 +116,26 @@ router.post('/ask', async (req, res) => {
 
     console.log(`Processing question: "${question}"`);
 
+    if (isConversationClosing(question)) {
+      console.log('[Chat] Conversation closing — polite sign-off (skipped RAG)');
+      return res.json({
+        answer: CLOSING_ASSISTANT_ANSWER,
+        aiUsed: false,
+        aiProvider: null,
+        relevantProjects: [],
+      });
+    }
+
+    if (isGreeting(question)) {
+      console.log('[Chat] Greeting — friendly intro (skipped RAG)');
+      return res.json({
+        answer: GREETING_ASSISTANT_ANSWER,
+        aiUsed: false,
+        aiProvider: null,
+        relevantProjects: [],
+      });
+    }
+
     // Step 1: Generate embedding for the question using Xenova
     console.log('Generating query embedding with Xenova...');
     const queryEmbedding = await generateEmbedding(question);
@@ -120,28 +150,35 @@ router.post('/ask', async (req, res) => {
       0.4
     );
 
-    if (relevantProjects.length === 0 && lastTitle) {
+    if (relevantProjects.length === 0) {
       const allRows = await getAllProjectRows();
-      const alt = rankProjectsByKeywords(question, allRows, 0.88);
+      const altWide = rankProjectsByKeywords(question, allRows, 0.78);
 
-      if (alt.length > 0) {
-        relevantProjects = alt.slice(0, MAX_CONTEXT_PROJECTS);
-        console.log('[Context] Strong keyword match recovered empty retrieval');
-      } else if (isFollowUpQuestion(question)) {
-        const row = await getProjectRowByTitleCi(lastTitle);
-        if (row) {
-          relevantProjects = [
-            {
-              id: row.id,
-              title: row.title,
-              description: row.description,
-              links: row.links,
-              similarity: 0.75,
-            },
-          ];
-          console.log(
-            `[Follow-up] Injected previous project context: "${row.title}"`
-          );
+      if (altWide.length > 0) {
+        relevantProjects = altWide.slice(0, MAX_CONTEXT_PROJECTS);
+        console.log('[Context] Keyword match recovered empty retrieval (wide)');
+      } else if (lastTitle) {
+        const alt = rankProjectsByKeywords(question, allRows, 0.88);
+
+        if (alt.length > 0) {
+          relevantProjects = alt.slice(0, MAX_CONTEXT_PROJECTS);
+          console.log('[Context] Strong keyword match recovered empty retrieval');
+        } else if (isFollowUpQuestion(question)) {
+          const row = await getProjectRowByTitleCi(lastTitle);
+          if (row) {
+            relevantProjects = [
+              {
+                id: row.id,
+                title: row.title,
+                description: row.description,
+                links: row.links,
+                similarity: 0.75,
+              },
+            ];
+            console.log(
+              `[Follow-up] Injected previous project context: "${row.title}"`
+            );
+          }
         }
       }
     }
@@ -202,7 +239,13 @@ router.post('/ask', async (req, res) => {
     let aiProvider = null;
     
     if (relevantProjects.length === 0) {
-      answer = `${NO_MATCH_LLM_MESSAGE}\n\nFor more information, please contact Syed Bakhtawar Abbas or visit the contact page.`;
+      if (isVaguePortfolioQuestion(question)) {
+        const rowsForList = await getAllProjectRows();
+        answer = buildVaguePortfolioAnswer(rowsForList);
+        console.log('[Chat] Vague portfolio question — listing all project titles');
+      } else {
+        answer = SOFT_UNCLEAR_ASSISTANT_ANSWER;
+      }
       aiUsed = false;
       aiProvider = null;
     } else if (aiResult && aiResult.response) {

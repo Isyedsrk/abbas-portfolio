@@ -13,20 +13,22 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="app-root d-flex flex-column min-vh-100">
       <Router>
         <Header />
         <ChatButton />
-        <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/Project" element={<Project />} />
-          <Route path="/project-video/:id" element={<VideoPlayer />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Contact" element={<Contact />} />
-        </Routes>
-       <Footer/>
+        <main className="flex-grow-1">
+          <Routes>
+            <Route path="/" element={<Hero />} />
+            <Route path="/Project" element={<Project />} />
+            <Route path="/project-video/:id" element={<VideoPlayer />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/Contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
       </Router>
-    </>
+    </div>
   );
 }
 

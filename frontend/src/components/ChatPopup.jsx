@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import AssistantMessageContent from './AssistantMessageContent';
 import { askQuestion } from '../utils/api';
 import Swal from 'sweetalert2';
 import { FaPaperPlane, FaSpinner, FaTimes } from 'react-icons/fa';
@@ -121,7 +122,13 @@ const ChatPopup = ({ isOpen, onClose }) => {
                 ) : (
                   <strong>AI Assistant:</strong>
                 )}
-                <p>{message.content}</p>
+                {message.type === 'user' ? (
+                  <p>{message.content}</p>
+                ) : (
+                  <div className="assistant-msg-wrap">
+                    <AssistantMessageContent text={message.content} />
+                  </div>
+                )}
                 
                 {message.relevantProjects && message.relevantProjects.length > 0 && (
                   <div className="relevant-projects">
@@ -211,13 +218,15 @@ const ChatPopup = ({ isOpen, onClose }) => {
           max-width: 500px;
           height: 80vh;
           max-height: 700px;
-          background: white;
+          background: #1a1a1a;
+          border: 1px solid rgba(255, 193, 7, 0.28);
           border-radius: 20px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
           z-index: 1050;
           display: flex;
           flex-direction: column;
           animation: slideUp 0.3s ease-out;
+          overflow: hidden;
         }
 
         @keyframes fadeIn {
@@ -238,29 +247,32 @@ const ChatPopup = ({ isOpen, onClose }) => {
 
         .chat-popup-header {
           padding: 20px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          border-radius: 20px 20px 0 0;
+          background: linear-gradient(180deg, #1f1f1f 0%, #181818 100%);
+          color: #f2f2f2;
+          border-radius: 0;
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
+          border-bottom: 1px solid rgba(255, 193, 7, 0.35);
         }
 
         .chat-popup-header h3 {
           margin: 0 0 5px 0;
           font-size: 1.5rem;
+          color: #ffc107;
         }
 
         .chat-popup-header p {
           margin: 0;
           opacity: 0.9;
           font-size: 0.9rem;
+          color: rgba(245, 245, 245, 0.85);
         }
 
         .chat-close-btn {
-          background: rgba(255, 255, 255, 0.2);
-          border: none;
-          color: white;
+          background: rgba(255, 193, 7, 0.15);
+          border: 2px solid #ffc107;
+          color: #ffc107;
           width: 35px;
           height: 35px;
           border-radius: 50%;
@@ -268,25 +280,26 @@ const ChatPopup = ({ isOpen, onClose }) => {
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: background 0.2s;
+          transition: all 0.2s;
           flex-shrink: 0;
         }
 
         .chat-close-btn:hover {
-          background: rgba(255, 255, 255, 0.3);
+          background: #ffc107;
+          color: #141414;
         }
 
         .chat-popup-messages {
           flex: 1;
           overflow-y: auto;
           padding: 20px;
-          background: #f8f9fa;
+          background: #141414;
         }
 
         .welcome-message {
           text-align: center;
           padding: 30px 20px;
-          color: #6c757d;
+          color: rgba(255, 224, 150, 0.65);
         }
 
         .welcome-message ul {
@@ -306,12 +319,13 @@ const ChatPopup = ({ isOpen, onClose }) => {
 
         .user-message .message-content {
           display: inline-block;
-          background: #007bff;
-          color: white;
+          background: #ffc107;
+          color: #141414;
           padding: 12px 18px;
           border-radius: 18px 18px 4px 18px;
           max-width: 75%;
           text-align: left;
+          font-weight: 500;
         }
 
         .assistant-message {
@@ -320,31 +334,54 @@ const ChatPopup = ({ isOpen, onClose }) => {
 
         .assistant-message .message-content {
           display: inline-block;
-          background: white;
-          color: #333;
+          background: linear-gradient(165deg, #2a2a2a 0%, #222 100%);
+          color: rgba(245, 245, 245, 0.95);
           padding: 12px 18px;
           border-radius: 18px 18px 18px 4px;
-          max-width: 75%;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          max-width: 92%;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+          border: 1px solid rgba(255, 193, 7, 0.18);
+          border-left: 3px solid #ffc107;
         }
 
-        .message-content strong {
+        .assistant-msg-wrap {
+          margin-top: 4px;
+        }
+
+        .user-message .message-content strong {
           display: block;
           margin-bottom: 5px;
           font-size: 0.85rem;
-          opacity: 0.8;
+          opacity: 0.85;
+          color: #141414;
         }
 
-        .message-content p {
+        .assistant-message .message-content strong {
+          display: block;
+          margin-bottom: 5px;
+          font-size: 0.85rem;
+          opacity: 0.95;
+          color: #ffc107;
+        }
+
+        .assistant-message .message-content p {
           margin: 0;
           line-height: 1.5;
           font-size: 0.95rem;
+          color: rgba(245, 245, 245, 0.9);
+        }
+
+        .user-message .message-content p {
+          margin: 0;
+          line-height: 1.5;
+          font-size: 0.95rem;
+          color: #141414;
         }
 
         .relevant-projects {
           margin-top: 15px;
           padding-top: 15px;
-          border-top: 1px solid #e9ecef;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .relevant-projects strong {
@@ -359,11 +396,12 @@ const ChatPopup = ({ isOpen, onClose }) => {
         .relevant-projects li {
           margin-bottom: 8px;
           font-size: 0.9rem;
+          color: rgba(245, 245, 245, 0.88);
         }
 
         .project-link {
           margin-left: 10px;
-          color: #007bff;
+          color: #ffcd39;
           text-decoration: none;
           font-size: 0.85rem;
         }
@@ -374,8 +412,8 @@ const ChatPopup = ({ isOpen, onClose }) => {
 
         .chat-popup-input-form {
           padding: 15px 20px;
-          background: white;
-          border-top: 1px solid #e9ecef;
+          background: #181818;
+          border-top: 1px solid rgba(255, 193, 7, 0.28);
           border-radius: 0 0 20px 20px;
         }
 
@@ -387,9 +425,15 @@ const ChatPopup = ({ isOpen, onClose }) => {
         .input-group .form-control {
           flex: 1;
           border-radius: 25px;
-          border: 2px solid #e9ecef;
+          border: 1px solid rgba(255, 193, 7, 0.25);
           padding: 12px 20px;
           font-size: 0.95rem;
+          background: #242424;
+          color: #f2f2f2;
+        }
+
+        .input-group .form-control::placeholder {
+          color: rgba(255, 255, 255, 0.35);
         }
 
         .input-group .form-control:focus {
@@ -424,16 +468,16 @@ const ChatPopup = ({ isOpen, onClose }) => {
         }
 
         .chat-popup-messages::-webkit-scrollbar-track {
-          background: #f1f1f1;
+          background: #1a1a1a;
         }
 
         .chat-popup-messages::-webkit-scrollbar-thumb {
-          background: #888;
+          background: rgba(255, 193, 7, 0.35);
           border-radius: 3px;
         }
 
         .chat-popup-messages::-webkit-scrollbar-thumb:hover {
-          background: #555;
+          background: rgba(255, 193, 7, 0.5);
         }
 
         @media (max-width: 768px) {

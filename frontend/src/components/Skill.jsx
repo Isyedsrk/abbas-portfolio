@@ -29,97 +29,113 @@ const Skill = () => {
       title: "React",
       description: "A JavaScript library for building user interfaces.",
       icon: FaReact,
-      color: "#61DBFB" 
+      color: "#61DBFB",
     },
     {
       id: "3",
       title: "JavaScript",
       description: "A programming language used for web development.",
       icon: IoLogoJavascript,
-      color: "#F7DF1E" 
+      color: "#F7DF1E",
     },
     {
       id: "4",
       title: "CSS",
       description: "A style sheet language for designing web pages.",
       icon: IoLogoCss3,
-      color: "#264DE4" 
+      color: "#264DE4",
     },
     {
       id: "5",
       title: "HTML",
       description: "The standard markup language for creating web pages.",
       icon: TiHtml5,
-      color: "#E34C26" 
+      color: "#E34C26",
     },
     {
       id: "6",
       title: "Python",
-      description: "A powerful, versatile programming language used in data analysis, machine learning, and web development.",
+      description:
+        "A powerful, versatile programming language used in data analysis, machine learning, and web development.",
       icon: FaPython,
-      color: "#3776AB" 
+      color: "#3776AB",
     },
     {
       id: "7",
       title: "Unity3D",
-      description: "A real-time development platform used for creating 3D games and AR/VR applications.",
+      description:
+        "A real-time development platform used for creating 3D games and AR/VR applications.",
       icon: FaUnity,
-      color: "#000000" 
+      color: "#000000",
     },
     {
       id: "8",
       title: "jQuery",
-      description: "A fast, small, and feature-rich JavaScript library for simplifying HTML document traversal and manipulation.",
+      description:
+        "A fast, small, and feature-rich JavaScript library for simplifying HTML document traversal and manipulation.",
       icon: DiJqueryLogo,
-      color: "#0769AD" 
+      color: "#0769AD",
     },
     {
       id: "9",
       title: "Three.js",
-      description: "A cross-browser JavaScript library used to create and display animated 3D computer graphics in a web browser.",
+      description:
+        "A cross-browser JavaScript library used to create and display animated 3D computer graphics in a web browser.",
       icon: SiThreedotjs,
-      color: "#000000" 
+      color: "#000000",
     },
     {
       id: "10",
       title: "Node.js",
-      description: "A JavaScript runtime built on Chrome's V8 JavaScript engine for building scalable server-side applications.",
+      description:
+        "A JavaScript runtime built on Chrome's V8 JavaScript engine for building scalable server-side applications.",
       icon: SiNodedotjs,
-      color: "#339933" 
+      color: "#339933",
     },
     {
       id: "11",
       title: "MySQL",
-      description: "An open-source relational database management system used for web applications and data storage.",
+      description:
+        "An open-source relational database management system used for web applications and data storage.",
       icon: SiMysql,
-      color: "#4479A1" 
+      color: "#4479A1",
     },
     {
       id: "12",
       title: "Docker",
-      description: "A platform for developing, shipping, and running applications in isolated containers for consistent deployment.",
+      description:
+        "A platform for developing, shipping, and running applications in isolated containers for consistent deployment.",
       icon: SiDocker,
-      color: "#2496ED"
-    }
+      color: "#2496ED",
+    },
   ];
 
   return (
-    <div className="container px-4 py-5" id="icon-grid">
-      <h2 className="pb-2 border-bottom text-center text-muted">Skills</h2>
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
-        {mySkills.map(skill => (
-          <div className="col d-flex align-items-start" key={skill.id}>
-            <div className="me-3" style={{ fontSize: "1.75em", color: skill.color }}>
-            
-              {React.createElement(skill.icon)}
-            </div>
-            <div>
-              <h4 className="fw-bold mb-0">{skill.title}</h4>
-              
-              <p>{skill.description}</p>
-            </div>
-          </div>
-        ))}
+    <div className="container-fluid skills-section about-panel" id="icon-grid">
+      <div className="container col-xxl-10 px-3 px-lg-4 py-5">
+        <header className="about-section-header text-center mb-4 mb-lg-5">
+          <p className="about-section-eyebrow mb-2">Toolbox</p>
+          <h2 className="about-section-title mb-0">Skills</h2>
+        </header>
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4">
+          {mySkills.map((skill) => {
+            const isDarkIcon = skill.color === "#000000";
+            return (
+              <div className="col" key={skill.id}>
+                <article className="skill-card h-100">
+                  <div
+                    className={`skill-card__icon${isDarkIcon ? " skill-card__icon--dark" : ""}`}
+                    style={isDarkIcon ? undefined : { color: skill.color }}
+                  >
+                    {React.createElement(skill.icon, { size: 28 })}
+                  </div>
+                  <h3 className="skill-card__title">{skill.title}</h3>
+                  <p className="skill-card__desc">{skill.description}</p>
+                </article>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
