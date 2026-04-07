@@ -4,6 +4,10 @@
   # Command to build the site
   command = "npm run build"
 
+# Vite injects this at build time (see src/utils/api.js). Override in Netlify UI if the API URL changes.
+[build.environment]
+  VITE_API_URL = "https://abbas-portfolio-1sj5.onrender.com"
+
 # Handle React Router paths
 [[redirects]]
   from = "/*"
