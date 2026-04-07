@@ -22,7 +22,14 @@ const TITLE_ALIASES = {
   'Fruit-Slicer': ['fruit slicer', 'fruitslicer', 'fruit-slicer'],
   'Apna super bazaar': ['apna super bazaar', 'apna bazaar', 'e commerce', 'ecommerce website'],
   Healthease: ['healthease', 'health ease', 'healthcare app', 'lab test app'],
-  DAR: ['dar', 'detection and recognition', 'detect recognize'],
+  DAR: [
+    'dar',
+    'detection and recognition',
+    'detect recognize',
+    'python project',
+    'opencv',
+    'computer vision',
+  ],
   Obliviate: ['obliviate'],
   'Party Room': ['party room', 'watch together', 'sync video'],
 };
@@ -135,6 +142,84 @@ export function rankProjectsByKeywords(question, rows, minScore = 0.85) {
 
   scored.sort((a, b) => b.similarity - a.similarity);
   return scored;
+}
+
+/**
+ * Re-rank retrieved projects so skill/stack questions (e.g. "Python", "React")
+ * surface the right row before generic embedding order (e.g. Party Room).
+ * @param {string} question
+ * @param {Array<object>} projects — retrieval rows
+ * @param {Record<string, object>} detailsMap — projectDetails
+ * @param {(title: string) => string | undefined} resolveKey
+ */
+export function prioritizeProjectsForQuery(question, projects, detailsMap, resolveKey) {
+  if (!Array.isArray(projects) || projects.length <= 1) return projects;
+  const q = normalize(question);
+  if (!q) return projects;
+
+  const skillBoost = (needle, weight) => {
+    if (!needle || !q.includes(normalize(needle))) return 0;
+    return weight;
+  };
+
+  const scored = projects.map((p, idx) => {
+    let score = (projects.length - idx) * 0.0001;
+    const key = resolveKey(p.title);
+    const d = key ? detailsMap[key] || {} : {};
+    const tech = (Array.isArray(d.technologies) ? d.technologies : []).join(' ').toLowerCase();
+    const feats = (Array.isArray(d.features) ? d.features : []).join(' ').toLowerCase();
+    const blob = normalize(
+      `${p.title} ${p.description || ''} ${tech} ${feats} ${d.type || ''} ${d.category || ''}`
+    );
+
+    if (skillBoost('python', 4) && /\bpython\b/.test(tech)) score += 4;
+    if (skillBoost('java', 3) && /\bjava\b/.test(tech)) score += 3;
+    if (skillBoost('kotlin', 3) && /\bkotlin\b/.test(tech)) score += 3;
+    if (skillBoost('react', 3) && /\breact\b/.test(tech)) score += 3;
+    if ((skillBoost('javascript', 2) || skillBoost('typescript', 2)) && /\b(javascript|typescript)\b/.test(tech))
+      score += 2;
+    if (skillBoost('unity', 2) && /\bunity\b/.test(tech)) score += 2;
+    if ((skillBoost('c#', 2) || skillBoost('csharp', 2)) && /\bc#\b/.test(tech)) score += 2;
+    if (skillBoost('node', 2) && /\bnode\b/.test(tech)) score += 2;
+    if (skillBoost('opencv', 3) && /\bopencv\b/.test(tech)) score += 3;
+    if ((skillBoost('firebase', 3) || skillBoost('firestore', 3)) && /\bfirebase\b/.test(tech))
+      score += 3;
+    if (
+      (skillBoost('socket', 2) || skillBoost('websocket', 2)) &&
+      /\bsocket\.?io|websockets?\b/i.test(blob)
+    )
+      score += 2;
+    if (skillBoost('vuforia', 3) && /\bvuforia\b/.test(tech)) score += 3;
+    if (
+      (skillBoost('augmented', 2) || skillBoost('ar ', 2)) &&
+      (/\bar\b/.test(tech) || /augmented\s*reality/.test(blob))
+    )
+      score += 2;
+    if (skillBoost('vite', 2) && /\bvite\b/.test(tech)) score += 2;
+    if (skillBoost('express', 2) && /\bexpress(\.js)?\b/.test(tech)) score += 2;
+    if (skillBoost('android', 2) && /\bandroid\b/.test(tech)) score += 2;
+    if (skillBoost('sqlite', 2) && /\bsqlite\b/.test(tech)) score += 2;
+    if (
+      (skillBoost('html', 1) || skillBoost('css', 1)) &&
+      /\b(html|css)\b/.test(tech)
+    )
+      score += 1;
+    if (
+      (skillBoost('machine learning', 3) || skillBoost('ml ', 2)) &&
+      /machine\s*learning|\bml\b/.test(blob)
+    )
+      score += 2;
+    if (skillBoost('computer vision', 3) && /computer\s*vision/.test(blob)) score += 3;
+
+    for (const t of tokenize(q).filter((x) => x.length > 2)) {
+      if (blob.includes(t)) score += 0.1;
+    }
+
+    return { p, score };
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+  return scored.map((x) => x.p);
 }
 
 /**

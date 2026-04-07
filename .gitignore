@@ -10,6 +10,10 @@ node_modules/
 dist/
 dist-ssr/
 
+# Generated chat exports (npm run export-dataset in backend/)
+backend/data/chat_training_dataset.jsonl
+backend/data/chat_training_rejected.jsonl
+
 # Logs and OS noise
 *.log
 .DS_Store

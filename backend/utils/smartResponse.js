@@ -9,6 +9,37 @@ import {
   isVagueProjectQuery,
 } from './projectKeywordMatch.js';
 
+/** User wants a URL, repo, demo, or video — point them to the portfolio Projects page */
+export function userWantsLinkDemoOrGlimpse(questionLower) {
+  const q = String(questionLower || '').toLowerCase();
+  return (
+    /\b(link|url|github|git\s*hub|repo|repository|source\s*code|codebase)\b/.test(q) ||
+    /\b(where\s+(can|do)\s+i|how\s+to\s+get|give\s+me|send\s+me|share)\b.*\b(code|repo|link)\b/.test(
+      q
+    ) ||
+    /\b(live(\s+site)?|production|deploy(ed)?|hosted|demo|try\s+it|see\s+it\s+online)\b/.test(q) ||
+    /\b(glimpse|video\s+(clip|preview)?|watch\s+(a\s+)?(video|demo))\b/.test(q)
+  );
+}
+
+const PROJECTS_PAGE_CTA = `\n\nI bundle repos and quick video-style previews with each project on my portfolio showcase — you'll see everything there without me walking you through clicks.`;
+
+function finalizeAnswerForLinkIntent(answer, project, questionLower) {
+  if (!userWantsLinkDemoOrGlimpse(questionLower)) return answer;
+  let a = answer;
+  const url = project.links ? String(project.links).trim() : '';
+  if (url) {
+    a = a
+      .split('\n')
+      .filter((line) => !line.includes(url))
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+  a += PROJECTS_PAGE_CTA;
+  return a;
+}
+
 /**
  * Generate a natural, conversational response about a project
  */
@@ -19,28 +50,46 @@ export async function generateSmartResponse(question, project, allProjects = [])
 
   const intent = analyzeQuestionIntent(questionLower);
 
+  let answer;
   if (isVagueProjectQuery(question) && (intent === 'general' || intent === 'what')) {
-    return generateBriefOverview(project, details);
+    answer = generateBriefOverview(project, details);
+  } else {
+    switch (intent) {
+      case 'tech':
+        answer = generateTechResponse(project, details);
+        break;
+      case 'features':
+        answer = generateFeaturesResponse(project, details);
+        break;
+      case 'how':
+        answer = generateHowResponse(project, details);
+        break;
+      case 'what':
+        answer = generateWhatResponse(project, details);
+        break;
+      case 'why':
+        answer = generateWhyResponse(project, details);
+        break;
+      case 'more':
+        answer = generateDetailedResponse(project, details);
+        break;
+      case 'team':
+        answer = generateTeamResponse(project, details);
+        break;
+      default:
+        answer = generateGeneralResponse(project, details, question);
+    }
   }
 
-  switch (intent) {
-    case 'tech':
-      return generateTechResponse(project, details);
-    case 'features':
-      return generateFeaturesResponse(project, details);
-    case 'how':
-      return generateHowResponse(project, details);
-    case 'what':
-      return generateWhatResponse(project, details);
-    case 'why':
-      return generateWhyResponse(project, details);
-    case 'more':
-      return generateDetailedResponse(project, details);
-    case 'team':
-      return generateTeamResponse(project, details);
-    default:
-      return generateGeneralResponse(project, details, question);
-  }
+  const finalized = finalizeAnswerForLinkIntent(answer, project, questionLower);
+  return appendRelatedProjectsHint(finalized, project.title, allProjects);
+}
+
+function appendRelatedProjectsHint(answer, primaryTitle, allProjects) {
+  const others = allProjects.filter((p) => p.title !== primaryTitle).slice(0, 3);
+  if (others.length === 0) return answer;
+  const names = others.map((p) => p.title).join(', ');
+  return `${answer}\n\n**Related projects:** ${names}. Ask if you want details on any of these.`;
 }
 
 /**

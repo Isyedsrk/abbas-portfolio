@@ -3,8 +3,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import chatRoutes from './routes/chat.js';
 import { getActiveProvider } from './utils/aiProviders.js';
+import { ensureChatTables } from './utils/chatStore.js';
 
 dotenv.config();
+
+ensureChatTables().catch((e) =>
+  console.error('[Chat] Could not init chat tables:', e.message)
+);
 
 const app = express();
 const PORT = process.env.PORT || 3000;

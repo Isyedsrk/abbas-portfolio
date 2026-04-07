@@ -52,10 +52,16 @@ const ChatBot = ({ isOpen, onClose }) => {
     setLoading(true);
 
     try {
-      const response = await askQuestion(
-        userMessage,
-        lastProjectTitleRef.current
-      );
+      const historyForApi = messages
+        .filter((m) => typeof m.text === 'string')
+        .map((m) => ({
+          role: m.isUser ? 'user' : 'assistant',
+          content: m.text,
+        }));
+      const response = await askQuestion(userMessage, {
+        lastProjectTitle: lastProjectTitleRef.current,
+        history: historyForApi,
+      });
 
       const rp = response.relevantProjects || [];
       if (rp.length > 0 && rp[0]?.title) {

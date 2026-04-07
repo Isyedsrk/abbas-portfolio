@@ -8,7 +8,8 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "embed": "node scripts/embedProjects.js",
-    "embed:test": "node scripts/embedProjects.js"
+    "embed:test": "node scripts/embedProjects.js",
+    "export-dataset": "node scripts/exportChatDataset.js"
   },
   "keywords": ["express", "sqlite", "ai", "rag", "openai"],
   "author": "",

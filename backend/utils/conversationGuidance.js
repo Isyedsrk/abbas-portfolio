@@ -116,10 +116,10 @@ Use any title from the list — ask what it does, what tech it uses, or anything
 }
 
 export const GREETING_ASSISTANT_ANSWER = `### Quick answer
-Hey! Have a look at the **Projects** section on this site — that’s where you’ll see everything Syed has built, with demos and short descriptions.
+Hey. What would you like to know about my projects?
 
 ### More detail
-When something catches your eye, come back here and ask me about it — tech stack, how it works, what problem it solves, anything. I’ll walk you through whichever project you’re curious about.`;
+Name a project and ask — stack, features, or how it works.`;
 
 export const SOFT_UNCLEAR_ASSISTANT_ANSWER = `### Quick answer
 I’d love to help — could you point me to a **specific project** or rephrase a little? Syed’s work covers a lot of areas.

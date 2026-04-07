@@ -10,6 +10,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const lastProjectTitleRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -35,15 +36,26 @@ const ChatPopup = ({ isOpen, onClose }) => {
     setLoading(true);
 
     try {
-      // Send conversation history for context
-      const response = await askQuestion(userMessage, messages);
-      
+      const historyForApi = messages.map((m) => ({
+        role: m.type === 'user' ? 'user' : 'assistant',
+        content: m.content,
+      }));
+      const response = await askQuestion(userMessage, {
+        lastProjectTitle: lastProjectTitleRef.current,
+        history: historyForApi,
+      });
+
+      const rp = response.relevantProjects || [];
+      if (rp.length > 0 && rp[0]?.title) {
+        lastProjectTitleRef.current = rp[0].title;
+      }
+
       setMessages((prev) => [
         ...prev,
         {
           type: 'assistant',
           content: response.answer,
-          relevantProjects: response.relevantProjects || [],
+          relevantProjects: rp,
         },
       ]);
     } catch (error) {

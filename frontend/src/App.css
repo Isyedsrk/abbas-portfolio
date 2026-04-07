@@ -820,15 +820,6 @@ body.site-body {
   display: inline-block;
   line-height: 1em;
 }
-.img-about{
-  filter: grayscale(100%);
-
-}
-.img-about:hover{
-
-  filter: blur(0);
-
-}
 .nav-link.active {
   color: var(--site-accent) !important;
 }

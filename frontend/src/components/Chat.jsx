@@ -33,10 +33,14 @@ const Chat = () => {
     setLoading(true);
 
     try {
-      const response = await askQuestion(
-        userMessage,
-        lastProjectTitleRef.current
-      );
+      const historyForApi = messages.map((m) => ({
+        role: m.type === 'user' ? 'user' : 'assistant',
+        content: m.content,
+      }));
+      const response = await askQuestion(userMessage, {
+        lastProjectTitle: lastProjectTitleRef.current,
+        history: historyForApi,
+      });
 
       const rp = response.relevantProjects || [];
       if (rp.length > 0 && rp[0]?.title) {

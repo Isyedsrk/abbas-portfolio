@@ -5,6 +5,19 @@
 
 export { SYSTEM_PROMPT, buildRagUserMessage } from '../config/llmPrompt.js';
 
+/** Sampling for chat completions — tune via LLM_TEMPERATURE / LLM_TOP_P in .env */
+export function getLlmSamplingParams() {
+  const t = parseFloat(process.env.LLM_TEMPERATURE ?? '');
+  const temperature = Number.isFinite(t)
+    ? Math.min(2, Math.max(0, t))
+    : 0.75;
+  const p = parseFloat(process.env.LLM_TOP_P ?? '');
+  const top_p = Number.isFinite(p)
+    ? Math.min(1, Math.max(0.01, p))
+    : 0.92;
+  return { temperature, top_p };
+}
+
 /**
  * Generate chat response using Ollama (local, completely free)
  */
@@ -36,6 +49,7 @@ export async function generateWithOllama(prompt, systemPrompt, model = null) {
   for (const tryModel of modelsToTry) {
     try {
       console.log(`[AI] Attempting Ollama model: ${tryModel}`);
+      const { temperature, top_p } = getLlmSamplingParams();
       const response = await fetch(`${ollamaUrl}/api/chat`, {
         method: 'POST',
         headers: {
@@ -48,6 +62,7 @@ export async function generateWithOllama(prompt, systemPrompt, model = null) {
             { role: 'user', content: prompt },
           ],
           stream: false,
+          options: { temperature, top_p },
         }),
       });
 
@@ -80,6 +95,7 @@ export async function generateWithOllama(prompt, systemPrompt, model = null) {
  * Generate chat response using Hugging Face Inference API (free tier)
  */
 export async function generateWithHuggingFace(prompt, systemPrompt, model = 'mistralai/Mistral-7B-Instruct-v0.2') {
+  const { temperature, top_p } = getLlmSamplingParams();
   const apiKey = process.env.HUGGINGFACE_API_KEY;
   
   if (!apiKey) {
@@ -126,7 +142,8 @@ export async function generateWithHuggingFace(prompt, systemPrompt, model = 'mis
             { role: 'user', content: prompt },
           ],
           max_tokens: 500,
-          temperature: 0.7,
+          temperature,
+          top_p,
           stream: false,
         }),
       });
@@ -151,7 +168,8 @@ export async function generateWithHuggingFace(prompt, systemPrompt, model = 'mis
               { role: 'user', content: prompt },
             ],
             max_tokens: 500,
-            temperature: 0.7,
+            temperature,
+            top_p,
             stream: false,
           }),
         });
@@ -407,6 +425,7 @@ function extractEmbedding(data) {
  */
 export async function generateWithOpenAI(prompt, systemPrompt, model = 'gpt-3.5-turbo') {
   const apiKey = process.env.OPENAI_API_KEY;
+  const { temperature, top_p } = getLlmSamplingParams();
   
   if (!apiKey || apiKey === 'your_openai_api_key_here') {
     throw new Error('OpenAI API key not configured');
@@ -426,7 +445,8 @@ export async function generateWithOpenAI(prompt, systemPrompt, model = 'gpt-3.5-
           { role: 'user', content: prompt },
         ],
         max_tokens: 500,
-        temperature: 0.7,
+        temperature,
+        top_p,
       }),
     });
 

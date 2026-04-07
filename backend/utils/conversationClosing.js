@@ -4,6 +4,8 @@
  */
 
 const EXACT_CLOSING_PATTERNS = [
+  /^thanks\s*[!?.]*$/i,
+  /^thank\s*you\s*[!?.]*$/i,
   /^(thanks?|thank you|thx|ty|tysm)(\s+[!.]+)?$/i,
   /^(thanks?|thank you|thx)(\s+(so much|a lot|again|anyway))?\s*[!.]*$/i,
   /^(many thanks|much appreciated|appreciate it|cheers)\s*[!.]*$/i,
