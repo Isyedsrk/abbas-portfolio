@@ -125,4 +125,4 @@ export const SOFT_UNCLEAR_ASSISTANT_ANSWER = `### Quick answer
 I’d love to help — could you point me to a **specific project** or rephrase a little? Syed’s work covers a lot of areas.
 
 ### More detail
-Some names people ask about: **DAR**, **Bigg Boss – App Room**, **Learning with AR**, **Obliviate**, **Fruit-Slicer**, **Apna super bazaar**, **Healthease**, **Party Room**. Or use the **Contact** page to reach Syed directly.`;
+Some names people ask about: **DAR**, **Bigg Boss – App Room**, **Learning with AR**, **Obliviate**, **Fruit-Slicer**, **Apna super bazaar**, **Healthease**, **Party Room**. Or reach Syed via the **phone and email in the site footer** (Contact in the menu scrolls there).`;

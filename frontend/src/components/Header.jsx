@@ -3,17 +3,27 @@ import { NavLink } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import LOGO from "./img/LOGO.png";
 
-const NAV_LINKS = [
+const ROUTE_LINKS = [
   { to: "/", end: true, label: "Home" },
   { to: "/Project", label: "Projects" },
-  { to: "/About", label: "About" },
-  { to: "/Contact", label: "Contact" },
 ];
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const scrollToFooter = () => {
+    document
+      .getElementById("site-footer")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    closeMenu();
+    scrollToFooter();
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 992px)");
@@ -43,7 +53,7 @@ const Header = () => {
               menuOpen ? "header-site-nav--open" : ""
             }`}
           >
-            {NAV_LINKS.map(({ to, end, label }) => (
+            {ROUTE_LINKS.map(({ to, end, label }) => (
               <li key={to} className={to === "/" ? "navi" : ""}>
                 <NavLink
                   to={to}
@@ -57,6 +67,15 @@ const Header = () => {
                 </NavLink>
               </li>
             ))}
+            <li>
+              <a
+                href="#site-footer"
+                className="nav-link px-2 navigation-text"
+                onClick={handleContactClick}
+              >
+                Contact
+              </a>
+            </li>
           </ul>
 
           <span className="header-brand-wrap d-flex align-items-center flex-shrink-0">

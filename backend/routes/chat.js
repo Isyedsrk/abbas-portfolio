@@ -293,16 +293,19 @@ router.post('/ask', async (req, res) => {
       const hasMissingInfo = missingInfoPatterns.some(pattern => pattern.test(answer));
       
       // Check if contact message already exists (more flexible check)
-      const hasContactMessage = /contact syed bakhtawar|contact page|contact person|contact.*abbas/i.test(answer);
-      
+      const hasContactMessage =
+        /contact syed bakhtawar|contact page|site footer|footer.*phone|contact person|contact.*abbas/i.test(
+          answer
+        );
+
       // Add contact message if:
       // 1. No projects found (always add)
       // 2. Missing info detected and contact message not already present
       const contactLine =
-        '\n\nFor more information, please contact Syed Bakhtawar Abbas or visit the contact page.';
+        '\n\nFor more information, use **Contact** in the site menu to scroll to the footer for phone and email.';
       const alreadyHasFooter =
         hasContactMessage ||
-        /contact syed bakhtawar|visit the contact page/i.test(answer);
+        /contact syed bakhtawar|visit the contact page|site footer|scroll to the footer/i.test(answer);
       if (
         (noProjectsFound || (hasMissingInfo && !alreadyHasFooter)) &&
         !alreadyHasFooter
@@ -332,7 +335,8 @@ router.post('/ask', async (req, res) => {
       const topProject = relevantProjects[0];
       answer = await generateSmartResponse(question, topProject, relevantProjects);
       if (!answer.includes('contact') && !answer.includes('Syed Bakhtawar Abbas')) {
-        answer += "\n\nFor more information, please contact Syed Bakhtawar Abbas or visit the contact page.";
+        answer +=
+          "\n\nFor more information, use **Contact** in the site menu to scroll to the footer for phone and email.";
       }
     }
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
@@ -354,7 +358,8 @@ router.post('/ask', async (req, res) => {
     res.status(500).json({
       error: 'Failed to process question',
       message: error.message,
-      answer: "I'm having trouble processing your question right now. Please try asking about one of my projects like DAR, Learning with AR, or Obliviate.\n\nFor more information, please contact Syed Bakhtawar Abbas or visit the contact page.",
+      answer:
+        "I'm having trouble processing your question right now. Please try asking about one of my projects like DAR, Learning with AR, or Obliviate.\n\nFor more information, use **Contact** in the site menu to scroll to the footer for phone and email.",
     });
   }
 });

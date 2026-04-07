@@ -11,6 +11,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import ProjectAiAssistantModal from "./ProjectAiAssistantModal";
 
 
 const projects = [
@@ -157,6 +158,7 @@ const Project = () => {
   
   return (
     <>
+      <ProjectAiAssistantModal />
       <main>
         <section className="py-5 text-center container">
           <div className="row py-lg-5">

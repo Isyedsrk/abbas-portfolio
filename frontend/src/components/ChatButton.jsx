@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ChatBot from './ChatBot';
 import { FaCommentDots } from 'react-icons/fa';
+import { HIGHLIGHT_PROJECT_CHAT_BUTTON_EVENT } from './ProjectAiAssistantModal';
 
 const ChatButton = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [highlightChat, setHighlightChat] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    let clearT;
+    const pulse = () => {
+      if (clearT) window.clearTimeout(clearT);
+      setHighlightChat(true);
+      clearT = window.setTimeout(() => setHighlightChat(false), 2200);
+    };
+    window.addEventListener(HIGHLIGHT_PROJECT_CHAT_BUTTON_EVENT, pulse);
+    return () => {
+      window.removeEventListener(HIGHLIGHT_PROJECT_CHAT_BUTTON_EVENT, pulse);
+      if (clearT) window.clearTimeout(clearT);
+    };
+  }, []);
   
   // Only show on Project page
   const isProjectPage = location.pathname === '/Project' || location.pathname === '/project';
@@ -17,7 +33,7 @@ const ChatButton = () => {
   return (
     <>
       <button
-        className="chat-floating-button"
+        className={`chat-floating-button${highlightChat ? " chat-floating-button--attention" : ""}`}
         onClick={() => setIsOpen(true)}
         aria-label="Ask about my projects"
         title="Ask about my projects"
@@ -77,6 +93,48 @@ const ChatButton = () => {
 
         .chat-floating-button:hover .chat-button-icon {
           transform: scale(1.1);
+        }
+
+        .chat-floating-button--attention {
+          animation: chatFabAttention 2.1s ease-in-out 1 !important;
+        }
+
+        @keyframes chatFabAttention {
+          0%,
+          100% {
+            transform: scale(1) translateY(0);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+          }
+          18% {
+            transform: scale(1.14) translateY(-6px);
+            box-shadow:
+              0 0 0 6px rgba(255, 193, 7, 0.4),
+              0 12px 32px rgba(255, 193, 7, 0.45);
+          }
+          36% {
+            transform: scale(1) translateY(0);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+          }
+          54% {
+            transform: scale(1.12) translateY(-5px);
+            box-shadow:
+              0 0 0 8px rgba(255, 193, 7, 0.35),
+              0 10px 28px rgba(255, 193, 7, 0.4);
+          }
+          72% {
+            transform: scale(1) translateY(0);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+          }
+          88% {
+            transform: scale(1.08) translateY(-3px);
+            box-shadow: 0 8px 24px rgba(255, 193, 7, 0.5);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .chat-floating-button--attention {
+            animation: none !important;
+          }
         }
 
         @media (max-width: 768px) {

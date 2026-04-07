@@ -1,9 +1,12 @@
 // API configuration
-// In development, use backend URL (default: http://localhost:3000)
-// In production, use VITE_API_URL environment variable
-// For Render/Railway: Set VITE_API_URL to your deployed backend URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 
-  (import.meta.env.DEV ? 'http://localhost:3000' : 'http://localhost:3000');
+// Dev: localhost. Production: set VITE_API_URL in .env.production before `npm run build` (e.g. Netlify Drop).
+const envUrl = import.meta.env.VITE_API_URL;
+const API_BASE_URL =
+  typeof envUrl === 'string' && envUrl.trim()
+    ? envUrl.trim().replace(/\/$/, '')
+    : import.meta.env.DEV
+      ? 'http://localhost:3000'
+      : 'http://localhost:3000';
 
 /** Minimum time the “thinking” state shows when the API returns quickly — reads more human */
 const HUMAN_REPLY_MIN_MS = 1400;

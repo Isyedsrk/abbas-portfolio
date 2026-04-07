@@ -1,6 +1,6 @@
 import { FaGraduationCap, FaSchool } from "react-icons/fa";
 
-const Education = () => {
+const Education = ({ embedded = false }) => {
   const educations = [
     {
       id: "1",
@@ -32,6 +32,30 @@ const Education = () => {
     return <FaGraduationCap className="education-card__svg" aria-hidden />;
   };
 
+  const grid = (
+    <div className="row g-4 justify-content-center">
+      {educations.map((education) => (
+        <div className="col-12 col-md-6 col-xl-4" key={education.id}>
+          <article className="education-card h-100">
+            <div className="education-card__icon-wrap" aria-hidden>
+              {getIcon(education.title)}
+            </div>
+            <h3 className="education-card__title">{education.title}</h3>
+            <p className="education-card__school">{education.board}</p>
+            <div className="education-card__meta">
+              <span className="education-card__pill">{education.CGPA}</span>
+              <span className="education-card__pill">{education.Year}</span>
+            </div>
+          </article>
+        </div>
+      ))}
+    </div>
+  );
+
+  if (embedded) {
+    return grid;
+  }
+
   return (
     <div className="container-fluid education-section about-panel" id="featured-3">
       <div className="container col-xxl-10 px-3 px-lg-4 py-5">
@@ -39,23 +63,7 @@ const Education = () => {
           <p className="about-section-eyebrow mb-2">Academic path</p>
           <h2 className="about-section-title mb-0">Education</h2>
         </header>
-        <div className="row g-4 justify-content-center">
-          {educations.map((education) => (
-            <div className="col-12 col-md-6 col-xl-4" key={education.id}>
-              <article className="education-card h-100">
-                <div className="education-card__icon-wrap" aria-hidden>
-                  {getIcon(education.title)}
-                </div>
-                <h3 className="education-card__title">{education.title}</h3>
-                <p className="education-card__school">{education.board}</p>
-                <div className="education-card__meta">
-                  <span className="education-card__pill">{education.CGPA}</span>
-                  <span className="education-card__pill">{education.Year}</span>
-                </div>
-              </article>
-            </div>
-          ))}
-        </div>
+        {grid}
       </div>
     </div>
   );
