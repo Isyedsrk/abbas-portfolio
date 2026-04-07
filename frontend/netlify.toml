@@ -1,3 +1,10 @@
+# Netlify Drop: this file is NOT used when you drag-and-drop the `dist` folder.
+# 1) cd frontend && npm install && npm run build:drop
+# 2) Drag the `frontend/dist` folder onto https://app.netlify.com/drop
+#    (SPA routing uses public/_redirects copied into dist.)
+#
+# Git-connected Netlify: build settings below apply; [build.environment] sets VITE_API_URL.
+
 [build]
   # Directory to publish to deploy
   publish = "dist"
