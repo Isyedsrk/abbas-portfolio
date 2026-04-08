@@ -64,7 +64,7 @@ const VideoPlayer = () => {
             </header>
             <div className="video-page-body video-page-body--empty p-4 p-md-5 text-center">
               <div className="video-page-soon mx-auto">
-                <h2 className="video-page-soon-title h4 text-warning mb-3">
+                <h2 className="video-page-soon-title h4 text-primary mb-3">
                   Video coming soon
                 </h2>
                 <p className="video-page-soon-text mb-0">
@@ -75,7 +75,7 @@ const VideoPlayer = () => {
             <footer className="video-page-footer">
               <button
                 type="button"
-                className="btn btn-warning text-dark fw-semibold px-4"
+                className="btn btn-primary text-dark fw-semibold px-4"
                 onClick={back}
               >
                 Back to projects
@@ -115,7 +115,7 @@ const VideoPlayer = () => {
           <footer className="video-page-footer">
             <button
               type="button"
-              className="btn btn-warning text-dark fw-semibold px-4"
+              className="btn btn-primary text-dark fw-semibold px-4"
               onClick={back}
             >
               Back to projects

@@ -179,7 +179,7 @@ const ChatBot = ({ isOpen, onClose }) => {
           height: 80vh;
           max-height: 700px;
           background: #1a1a1a;
-          border: 1px solid rgba(255, 193, 7, 0.28);
+          border: 1px solid rgba(0, 212, 255, 0.32);
           border-radius: 20px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
           z-index: 1050;
@@ -213,13 +213,13 @@ const ChatBot = ({ isOpen, onClose }) => {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
-          border-bottom: 1px solid rgba(255, 193, 7, 0.35);
+          border-bottom: 1px solid rgba(0, 212, 255, 0.38);
         }
 
         .chatbot-header h3 {
           margin: 0 0 5px 0;
           font-size: 1.5rem;
-          color: #ffc107;
+          color: #00d4ff;
         }
 
         .chatbot-header p {
@@ -230,9 +230,9 @@ const ChatBot = ({ isOpen, onClose }) => {
         }
 
         .chatbot-close-btn {
-          background: rgba(255, 193, 7, 0.2);
-          border: 2px solid #ffc107;
-          color: #ffc107;
+          background: rgba(0, 212, 255, 0.18);
+          border: 2px solid #00d4ff;
+          color: #00d4ff;
           width: 35px;
           height: 35px;
           border-radius: 50%;
@@ -245,7 +245,7 @@ const ChatBot = ({ isOpen, onClose }) => {
         }
 
         .chatbot-close-btn:hover {
-          background: #ffc107;
+          background: #00d4ff;
           color: #000000;
         }
 
@@ -259,7 +259,7 @@ const ChatBot = ({ isOpen, onClose }) => {
         .welcome-message {
           text-align: center;
           padding: 30px 20px;
-          color: rgba(255, 224, 150, 0.65);
+          color: rgba(155, 232, 255, 0.72);
         }
 
         .welcome-message ul {
@@ -282,7 +282,7 @@ const ChatBot = ({ isOpen, onClose }) => {
           font-weight: 600;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: rgba(255, 193, 7, 0.5);
+          color: rgba(0, 212, 255, 0.55);
           margin-bottom: 6px;
           padding-right: 2px;
         }
@@ -300,8 +300,8 @@ const ChatBot = ({ isOpen, onClose }) => {
           line-height: 1.5;
           letter-spacing: 0.02em;
           box-shadow: 0 6px 22px rgba(0, 0, 0, 0.4);
-          border: 1px solid rgba(255, 193, 7, 0.2);
-          border-right: 3px solid #ffc107;
+          border: 1px solid rgba(0, 212, 255, 0.24);
+          border-right: 3px solid #00d4ff;
         }
 
         .user-bubble .bubble-content--user .bubble-text-user {
@@ -321,8 +321,8 @@ const ChatBot = ({ isOpen, onClose }) => {
           border-radius: 18px 18px 18px 4px;
           max-width: 92%;
           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-          border: 1px solid rgba(255, 193, 7, 0.18);
-          border-left: 3px solid #ffc107;
+          border: 1px solid rgba(0, 212, 255, 0.2);
+          border-left: 3px solid #00d4ff;
         }
 
         .bubble-label {
@@ -330,7 +330,7 @@ const ChatBot = ({ isOpen, onClose }) => {
           opacity: 0.8;
           margin-bottom: 5px;
           font-weight: 600;
-          color: #ffc107;
+          color: #00d4ff;
         }
 
         .bubble-text {
@@ -346,7 +346,7 @@ const ChatBot = ({ isOpen, onClose }) => {
         .chatbot-input-form {
           padding: 15px 20px;
           background: #181818;
-          border-top: 1px solid rgba(255, 193, 7, 0.28);
+          border-top: 1px solid rgba(0, 212, 255, 0.32);
           border-radius: 0 0 20px 20px;
           display: flex;
           gap: 10px;
@@ -355,7 +355,7 @@ const ChatBot = ({ isOpen, onClose }) => {
         .chatbot-input {
           flex: 1;
           border-radius: 25px;
-          border: 1px solid rgba(255, 193, 7, 0.25);
+          border: 1px solid rgba(0, 212, 255, 0.3);
           padding: 12px 20px;
           font-size: 0.95rem;
           background: #242424;
@@ -367,8 +367,8 @@ const ChatBot = ({ isOpen, onClose }) => {
         }
 
         .chatbot-input:focus {
-          border-color: #ffc107;
-          box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+          border-color: #00d4ff;
+          box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
           outline: none;
         }
 
@@ -381,7 +381,7 @@ const ChatBot = ({ isOpen, onClose }) => {
           justify-content: center;
           padding: 0;
           border: none;
-          background: #ffc107;
+          background: #00d4ff;
           color: #000000;
           cursor: pointer;
           transition: all 0.2s;
@@ -389,7 +389,7 @@ const ChatBot = ({ isOpen, onClose }) => {
         }
 
         .chatbot-send-btn:hover:not(:disabled) {
-          background: #ffb300;
+          background: #00b8e0;
           transform: scale(1.05);
         }
 
@@ -416,12 +416,12 @@ const ChatBot = ({ isOpen, onClose }) => {
         }
 
         .chatbot-messages::-webkit-scrollbar-thumb {
-          background: rgba(255, 193, 7, 0.35);
+          background: rgba(0, 212, 255, 0.35);
           border-radius: 3px;
         }
 
         .chatbot-messages::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 193, 7, 0.5);
+          background: rgba(0, 212, 255, 0.5);
         }
 
         @media (max-width: 768px) {

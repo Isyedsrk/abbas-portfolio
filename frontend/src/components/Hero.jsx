@@ -21,7 +21,7 @@ const Hero = () => {
         </div>
         <div className="col-lg-6">
           <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3 intro-word">
-            I'm <span className="text-warning">Bakhtawar</span>
+            I'm <span className="text-primary">Bakhtawar</span>
           </h1>
           <p className="lead">
             I am a full stack developer with a strong foundation in building interactive
@@ -33,7 +33,7 @@ const Hero = () => {
             <p>
             <button onClick={handleClick}
                             type="button"
-                            className="btn btn-warning"
+                            className="btn btn-primary"
                           >
                             Projects
                           </button>

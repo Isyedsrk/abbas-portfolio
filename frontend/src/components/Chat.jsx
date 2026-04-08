@@ -181,7 +181,7 @@ const Chat = () => {
                   />
                   <button
                     type="submit"
-                    className="btn btn-warning"
+                    className="btn btn-primary"
                     disabled={loading || !question.trim()}
                   >
                     {loading ? (
@@ -352,8 +352,8 @@ const Chat = () => {
         }
 
         .input-group .form-control:focus {
-          border-color: #ffc107;
-          box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+          border-color: #00d4ff;
+          box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
         }
 
         .input-group .btn {

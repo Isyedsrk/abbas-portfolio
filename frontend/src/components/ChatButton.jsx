@@ -50,8 +50,8 @@ const ChatButton = () => {
           right: 30px;
           width: 60px;
           height: 60px;
-          background: #ffc107;
-          color: #141414;
+          background: #00d4ff;
+          color: #001018;
           border: 3px solid #141414;
           border-radius: 50%;
           padding: 0;
@@ -78,8 +78,8 @@ const ChatButton = () => {
 
         .chat-floating-button:hover {
           transform: translateY(-5px) scale(1.05);
-          box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6);
-          background: #ffb300;
+          box-shadow: 0 8px 25px rgba(0, 212, 255, 0.55);
+          background: #00b8e0;
         }
 
         .chat-floating-button:active {
@@ -108,8 +108,8 @@ const ChatButton = () => {
           18% {
             transform: scale(1.14) translateY(-6px);
             box-shadow:
-              0 0 0 6px rgba(255, 193, 7, 0.4),
-              0 12px 32px rgba(255, 193, 7, 0.45);
+              0 0 0 6px rgba(0, 212, 255, 0.4),
+              0 12px 32px rgba(0, 212, 255, 0.42);
           }
           36% {
             transform: scale(1) translateY(0);
@@ -118,8 +118,8 @@ const ChatButton = () => {
           54% {
             transform: scale(1.12) translateY(-5px);
             box-shadow:
-              0 0 0 8px rgba(255, 193, 7, 0.35),
-              0 10px 28px rgba(255, 193, 7, 0.4);
+              0 0 0 8px rgba(0, 212, 255, 0.35),
+              0 10px 28px rgba(0, 212, 255, 0.38);
           }
           72% {
             transform: scale(1) translateY(0);
@@ -127,7 +127,7 @@ const ChatButton = () => {
           }
           88% {
             transform: scale(1.08) translateY(-3px);
-            box-shadow: 0 8px 24px rgba(255, 193, 7, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.46);
           }
         }
 

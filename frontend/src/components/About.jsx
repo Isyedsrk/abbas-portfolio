@@ -35,7 +35,7 @@ const About = () => {
               </div>
             </div>
             <div className="col-lg-6 text-center text-lg-start">
-              <h1 className="about-intro__name display-5 mb-3 text-warning">
+              <h1 className="about-intro__name display-5 mb-3 text-primary">
                 Syed Bakhtawar Abbas
               </h1>
               <p className="lead about-intro__lead">
@@ -55,7 +55,7 @@ const About = () => {
                   type="button"
                   href={CV_URL}
                   download={CV_DOWNLOAD_NAME}
-                  className="btn btn-warning btn-lg px-4"
+                  className="btn btn-primary btn-lg px-4"
                 >
                   Download CV
                 </a>

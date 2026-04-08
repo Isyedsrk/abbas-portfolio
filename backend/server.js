@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import chatRoutes from './routes/chat.js';
 import { getActiveProvider } from './utils/aiProviders.js';
 import { ensureChatTables } from './utils/chatStore.js';
+import { buildCorsOptions } from './utils/corsConfig.js';
 
 dotenv.config();
 
@@ -14,8 +15,11 @@ ensureChatTables().catch((e) =>
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
+const corsOptions = buildCorsOptions();
+
+// Middleware — must run before routes so OPTIONS preflight gets CORS headers
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 // Routes

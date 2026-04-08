@@ -163,7 +163,7 @@ const Project = () => {
         <section className="py-5 text-center container">
           <div className="row py-lg-5">
             <div className="col-lg-6 col-md-8 mx-auto my-4">
-              <h1 className="fw-light text-warning">Projects</h1>
+              <h1 className="fw-light text-primary">Projects</h1>
               <p className="lead text-muted">
                 Discover a selection of standout projects, showcasing a range of
                 innovative work from web development and AR experiences to game
@@ -178,7 +178,7 @@ const Project = () => {
                   rel="noopener noreferrer"
                   aria-label="GitHub"
                 >
-                  <FaGithub style={{ color: "#ffc107" }} />
+                  <FaGithub style={{ color: "#00d4ff" }} />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/syed-bakhtawar-abbas-2a17441a6/"
@@ -244,7 +244,7 @@ const Project = () => {
                                   }
                                 }}
                                 type="button"
-                                className="btn btn-warning btn-sm"
+                                className="btn btn-primary btn-sm"
                               >
                                 View
                               </button>
@@ -257,7 +257,7 @@ const Project = () => {
                                 }
                               }}
                               type="button"
-                              className="btn btn-outline-warning btn-sm"
+                              className="btn btn-outline-primary btn-sm"
                             >
                               Glimpse
                             </button>
@@ -368,7 +368,7 @@ const Project = () => {
         .carousel-card .card {
           width: 350px;
           height: 500px;
-          border: 1px solid rgba(255, 193, 7, 0.22);
+          border: 1px solid rgba(0, 212, 255, 0.28);
           border-radius: 15px;
           overflow: hidden;
           background: #141414;
@@ -415,7 +415,7 @@ const Project = () => {
           font-size: 1.1rem;
           font-weight: 600;
           margin-bottom: 0.75rem;
-          color: #ffc107 !important;
+          color: #00d4ff !important;
           flex-shrink: 0;
           transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
@@ -449,31 +449,31 @@ const Project = () => {
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
-        .carousel-card .btn-warning {
-          background: #ffc107;
+        .carousel-card .btn-primary {
+          background: #00d4ff;
           color: #000;
         }
 
-        .carousel-card .btn-warning:hover {
-          background: #e0a800;
+        .carousel-card .btn-primary:hover {
+          background: #00b8e0;
           color: #000;
         }
 
-        .carousel-card .btn-outline-warning {
+        .carousel-card .btn-outline-primary {
           border: none !important;
           box-shadow: none !important;
-          color: #ffc107;
+          color: #00d4ff;
           background: transparent;
           text-decoration: none;
         }
 
-        .carousel-card .btn-outline-warning:hover {
-          background: rgba(255, 193, 7, 0.15);
-          color: #ffcd39;
+        .carousel-card .btn-outline-primary:hover {
+          background: rgba(0, 212, 255, 0.16);
+          color: #57e5ff;
         }
 
-        .carousel-card .btn-outline-warning:focus-visible {
-          outline: 2px solid rgba(255, 193, 7, 0.6);
+        .carousel-card .btn-outline-primary:focus-visible {
+          outline: 2px solid rgba(0, 212, 255, 0.6);
           outline-offset: 2px;
         }
 
@@ -482,7 +482,7 @@ const Project = () => {
           top: 50%;
           transform: translateY(-50%);
           background: rgba(20, 20, 20, 0.95);
-          border: 2px solid rgba(255, 193, 7, 0.5);
+          border: 2px solid rgba(0, 212, 255, 0.58);
           border-radius: 50%;
           width: 50px;
           height: 50px;
@@ -490,7 +490,7 @@ const Project = () => {
           align-items: center;
           justify-content: center;
           font-size: 1.2rem;
-          color: #ffc107;
+          color: #00d4ff;
           cursor: pointer;
           transition: all 0.3s ease;
           z-index: 10;
@@ -505,10 +505,10 @@ const Project = () => {
         }
 
         .carousel-btn:hover {
-          background: #ffc107;
+          background: #00d4ff;
           color: #000;
           transform: translateY(-50%) scale(1.1);
-          box-shadow: 0 6px 24px rgba(255, 193, 7, 0.35);
+          box-shadow: 0 6px 24px rgba(0, 212, 255, 0.35);
         }
 
         .carousel-btn:active {
@@ -534,20 +534,20 @@ const Project = () => {
           width: 12px;
           height: 12px;
           border-radius: 50%;
-          border: 1px solid rgba(255, 193, 7, 0.35);
+          border: 1px solid rgba(0, 212, 255, 0.38);
           background: #2a2a2a;
           cursor: pointer;
           transition: all 0.3s ease;
         }
 
         .indicator.active {
-          background: #ffc107;
+          background: #00d4ff;
           transform: scale(1.2);
-          border-color: #ffc107;
+          border-color: #00d4ff;
         }
 
         .indicator:hover {
-          background: #ffc107;
+          background: #00d4ff;
           opacity: 0.85;
         }
 

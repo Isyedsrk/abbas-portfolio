@@ -74,7 +74,7 @@ const skillCategories = [
       { name: "Node.js", icon: SiNodedotjs, color: "#339933", level: 65 },
       { name: "Express.js", icon: SiExpress, color: "#ffffff", level: 65 },
       { name: "FastAPI", icon: SiFastapi, color: "#009688", level: 40 },
-      { name: "REST APIs", icon: FaRoute, color: "#ffc107", level: 50 },
+      { name: "REST APIs", icon: FaRoute, color: "#00d4ff", level: 50 },
       {
         name: "Authentication (JWT, bcrypt)",
         icon: SiJsonwebtokens,
@@ -106,7 +106,7 @@ const skillCategories = [
     usp: true,
     items: [
       { name: "Unity3D", icon: FaUnity, color: "#000000", level: 50 },
-      { name: "Vuforia", icon: FaCamera, color: "#ffc107", level: 90 },
+      { name: "Vuforia", icon: FaCamera, color: "#00d4ff", level: 90 },
       { name: "Three.js", icon: SiThreedotjs, color: "#000000", level: 70 },
       {
         name: "WebAR (8th Wall, MindAR)",

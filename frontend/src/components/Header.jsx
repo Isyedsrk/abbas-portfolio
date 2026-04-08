@@ -40,7 +40,7 @@ const Header = () => {
         <div className="header-shell d-flex flex-wrap align-items-center justify-content-lg-start">
           <button
             type="button"
-            className="header-hamburger d-lg-none btn btn-link text-warning p-1 border-0 shadow-none"
+            className="header-hamburger d-lg-none btn btn-link text-primary p-1 border-0 shadow-none"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((o) => !o)}

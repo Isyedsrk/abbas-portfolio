@@ -196,7 +196,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
             />
             <button
               type="submit"
-              className="btn btn-warning"
+              className="btn btn-primary"
               disabled={loading || !question.trim()}
             >
               {loading ? (
@@ -231,7 +231,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
           height: 80vh;
           max-height: 700px;
           background: #1a1a1a;
-          border: 1px solid rgba(255, 193, 7, 0.28);
+          border: 1px solid rgba(0, 212, 255, 0.32);
           border-radius: 20px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
           z-index: 1050;
@@ -265,13 +265,13 @@ const ChatPopup = ({ isOpen, onClose }) => {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
-          border-bottom: 1px solid rgba(255, 193, 7, 0.35);
+          border-bottom: 1px solid rgba(0, 212, 255, 0.38);
         }
 
         .chat-popup-header h3 {
           margin: 0 0 5px 0;
           font-size: 1.5rem;
-          color: #ffc107;
+          color: #00d4ff;
         }
 
         .chat-popup-header p {
@@ -282,9 +282,9 @@ const ChatPopup = ({ isOpen, onClose }) => {
         }
 
         .chat-close-btn {
-          background: rgba(255, 193, 7, 0.15);
-          border: 2px solid #ffc107;
-          color: #ffc107;
+          background: rgba(0, 212, 255, 0.15);
+          border: 2px solid #00d4ff;
+          color: #00d4ff;
           width: 35px;
           height: 35px;
           border-radius: 50%;
@@ -297,7 +297,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
         }
 
         .chat-close-btn:hover {
-          background: #ffc107;
+          background: #00d4ff;
           color: #141414;
         }
 
@@ -311,7 +311,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
         .welcome-message {
           text-align: center;
           padding: 30px 20px;
-          color: rgba(255, 224, 150, 0.65);
+          color: rgba(155, 232, 255, 0.72);
         }
 
         .welcome-message ul {
@@ -331,8 +331,8 @@ const ChatPopup = ({ isOpen, onClose }) => {
 
         .user-message .message-content {
           display: inline-block;
-          background: #ffc107;
-          color: #141414;
+          background: #00d4ff;
+          color: #001018;
           padding: 12px 18px;
           border-radius: 18px 18px 4px 18px;
           max-width: 75%;
@@ -352,8 +352,8 @@ const ChatPopup = ({ isOpen, onClose }) => {
           border-radius: 18px 18px 18px 4px;
           max-width: 92%;
           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-          border: 1px solid rgba(255, 193, 7, 0.18);
-          border-left: 3px solid #ffc107;
+          border: 1px solid rgba(0, 212, 255, 0.2);
+          border-left: 3px solid #00d4ff;
         }
 
         .assistant-msg-wrap {
@@ -373,7 +373,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
           margin-bottom: 5px;
           font-size: 0.85rem;
           opacity: 0.95;
-          color: #ffc107;
+          color: #00d4ff;
         }
 
         .assistant-message .message-content p {
@@ -413,7 +413,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
 
         .project-link {
           margin-left: 10px;
-          color: #ffcd39;
+          color: #57e5ff;
           text-decoration: none;
           font-size: 0.85rem;
         }
@@ -425,7 +425,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
         .chat-popup-input-form {
           padding: 15px 20px;
           background: #181818;
-          border-top: 1px solid rgba(255, 193, 7, 0.28);
+          border-top: 1px solid rgba(0, 212, 255, 0.32);
           border-radius: 0 0 20px 20px;
         }
 
@@ -437,7 +437,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
         .input-group .form-control {
           flex: 1;
           border-radius: 25px;
-          border: 1px solid rgba(255, 193, 7, 0.25);
+          border: 1px solid rgba(0, 212, 255, 0.3);
           padding: 12px 20px;
           font-size: 0.95rem;
           background: #242424;
@@ -449,8 +449,8 @@ const ChatPopup = ({ isOpen, onClose }) => {
         }
 
         .input-group .form-control:focus {
-          border-color: #ffc107;
-          box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+          border-color: #00d4ff;
+          box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
           outline: none;
         }
 
@@ -484,12 +484,12 @@ const ChatPopup = ({ isOpen, onClose }) => {
         }
 
         .chat-popup-messages::-webkit-scrollbar-thumb {
-          background: rgba(255, 193, 7, 0.35);
+          background: rgba(0, 212, 255, 0.35);
           border-radius: 3px;
         }
 
         .chat-popup-messages::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 193, 7, 0.5);
+          background: rgba(0, 212, 255, 0.5);
         }
 
         @media (max-width: 768px) {

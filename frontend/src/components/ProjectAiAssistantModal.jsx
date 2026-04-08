@@ -64,13 +64,13 @@ const ProjectAiAssistantModal = () => {
         <p id="project-ai-modal-desc" className="project-ai-modal__text">
           Have a question about any of these projects—tech stack, features, or
           how something was built? Ask the{" "}
-          <strong className="text-warning">AI assistant</strong>. It knows this
+          <strong className="text-primary">AI assistant</strong>. It knows this
           portfolio and can point you to details or suggest what to explore
           next.
         </p>
         <p className="project-ai-modal__hint mb-0">
           <FaCommentDots className="project-ai-modal__hint-icon" aria-hidden />
-          Tap the gold chat button in the corner anytime.
+          Tap the neon-blue chat button in the corner anytime.
         </p>
       </div>
     </div>
